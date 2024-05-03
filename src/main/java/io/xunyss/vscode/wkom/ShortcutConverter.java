@@ -10,11 +10,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -22,10 +22,6 @@ import java.util.TreeSet;
  *
  */
 public class ShortcutConverter {
-
-	static final Map<String, String> ORDER_MAP = new HashMap<String, String>() {{
-		put("ctrl+shift+alt", "");
-	}};
 
 	static final String projectDir = System.getProperty("user.dir");
 	static final String defaultWin = projectDir + "/keymaps/default-win.json";
@@ -39,6 +35,15 @@ public class ShortcutConverter {
 	public static void init() throws IOException {
 		try (	BufferedReader br = new BufferedReader(new FileReader(defaultWin));
 				BufferedWriter fw = new BufferedWriter(new FileWriter(win))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (!line.startsWith("// ") && !line.isEmpty()) {
+					fw.write(line + "\n");
+				}
+			}
+		}
+		try (	BufferedReader br = new BufferedReader(new FileReader(defaultMac));
+				BufferedWriter fw = new BufferedWriter(new FileWriter(mac))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				if (!line.startsWith("// ") && !line.isEmpty()) {
@@ -67,6 +72,7 @@ public class ShortcutConverter {
             from = new Gson().fromJson(fr, List.class);
 		}
 
+		//--------------
 		// 1. key elems, comb
 		Set<String> keyset = new TreeSet<>();
 		Set<String> comset = new TreeSet<>();
@@ -91,6 +97,7 @@ public class ShortcutConverter {
 		for (String k : comset) {
 			System.out.println(k);
 		}
+		//-------------
 
 		// 2. new key
 		List<Map<String, Object>> to = new LinkedList<>();
@@ -115,5 +122,38 @@ public class ShortcutConverter {
 		try (FileWriter fw = new FileWriter(wom)) {
 			new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(to, fw);
 		}
+
+
+
+		// default_mac read
+		List<Map<String, Object>> dmac;
+		try (FileReader fr = new FileReader(mac)) {
+			//noinspection unchecked
+			dmac = new Gson().fromJson(fr, List.class);
+		}
+		for (Map<String, Object> mi : dmac) {
+			boolean ssss = printNegative(to, mi);
+			if (!ssss) {
+				System.out.println("diff: " + mi);
+			}
+		}
+	}
+
+	private static boolean printNegative(List<Map<String, Object>> to, Map<String, Object> mi) {
+		boolean existSame = false;
+		for (Map<String, Object> ti : to) {
+			if (isSame(mi, ti)) {
+				existSame = true;
+				mi.put("command", "-" + mi.get("command").toString());
+//				System.out.println("same: " + mi);	// TODO: negative key >> "win"
+			}
+		}
+		return existSame;
+	}
+	private static boolean isSame(Map<String, Object> c1, Map<String, Object> c2) {
+		if (!c1.get("command").equals(c2.get("command")))
+			return false;
+		return	Objects.equals(c1.get("when"), c2.get("when"))
+				&& Objects.equals(c1.get("args"), c2.get("args"));
 	}
 }
