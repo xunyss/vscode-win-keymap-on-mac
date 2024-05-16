@@ -1,3 +1,5 @@
 /target/
+/win-keymap-on-mac/node_modules
+/win-keymap-on-mac/*.vsix
 
 /.idea/

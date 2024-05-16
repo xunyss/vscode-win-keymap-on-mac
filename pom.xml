@@ -8,13 +8,18 @@
 
 	<groupId>io.xunyss.vscode</groupId>
 	<artifactId>vscode-win-keymap-on-mac</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.2</version>
 	<packaging>jar</packaging>
 
 	<name>vscode-win-keymap-on-mac</name>
 	<description>vscode-win-keymap-on-mac</description>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -25,6 +30,12 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.9</version>
 		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.32</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -42,6 +53,18 @@
 					<source>11</source>
 					<target>11</target>
 					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
 		</plugins>

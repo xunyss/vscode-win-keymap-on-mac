@@ -1,0 +1,37 @@
+{
+	"name": "win-keymap-on-mac",
+	"displayName": "Windows Eclipse Keymap on MacOS",
+	"description": "Windows Eclipse Keymap on MacOS for Visual Studio Code",
+	"version": "${package_version}",
+	"publisher": "xunyss",
+	"engines": {
+		"vscode": "^1.68.1"
+	},
+	"categories": [
+		"Keymaps"
+	],
+	"keywords": [
+		"keybindings",
+		"keymap",
+		"eclipse",
+		"windows"
+	],
+	"icon": "win-keymap-on-mac.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/xunyss/vscode-win-keymap-on-mac.git"
+	},
+	"bugs": {
+		"url": "https://github.com/xunyss/vscode-win-keymap-on-mac/issues"
+	},
+	"homepage": "https://xunyss.github.io/eclipse-keymap-for-vscode/",
+	"contributes": {
+		"keybindings": ${package_keybindings}
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"dependencies": {
+		"@vscode/vsce": "^2.26.1"
+	}
+}

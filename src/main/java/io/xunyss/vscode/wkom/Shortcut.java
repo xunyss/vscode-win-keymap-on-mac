@@ -1,52 +1,88 @@
 package io.xunyss.vscode.wkom;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.Objects;
+
+/**
+ *
+ */
 public class Shortcut {
 
-    private String key;
-    private String mac;
-
-    private String command;
-    private String when;
-    private Object args;
+	private static final Gson TO_STRING_GSON = new GsonBuilder().disableHtmlEscaping().create();
 
 
-    public String getKey() {
-        return key;
-    }
+	private String key;
+	private String mac;
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+	private String command;
+	private String when;
+	private Object args;
 
-    public String getMac() {
-        return mac;
-    }
 
-    public void setMac(String mac) {
-        this.mac = mac;
-    }
+	public String getKey() {
+		return key;
+	}
 
-    public String getCommand() {
-        return command;
-    }
+	public void setKey(String key) {
+		this.key = key;
+	}
 
-    public void setCommand(String command) {
-        this.command = command;
-    }
+	public String getMac() {
+		return mac;
+	}
 
-    public String getWhen() {
-        return when;
-    }
+	public void setMac(String mac) {
+		this.mac = mac;
+	}
 
-    public void setWhen(String when) {
-        this.when = when;
-    }
+	public String getCommand() {
+		return command;
+	}
 
-    public Object getArgs() {
-        return args;
-    }
+	public void setCommand(String command) {
+		this.command = command;
+	}
 
-    public void setArgs(Object args) {
-        this.args = args;
-    }
+	public String getWhen() {
+		return when;
+	}
+
+	public void setWhen(String when) {
+		this.when = when;
+	}
+
+	public Object getArgs() {
+		return args;
+	}
+
+	public void setArgs(Object args) {
+		this.args = args;
+	}
+
+
+	public boolean equalsKey(Shortcut sc) {
+		return this.getKey().equals(sc.getKey());
+	}
+
+	public boolean equalsCommand(Shortcut sc) {
+		return  this.getCommand().equals(sc.getCommand())
+			&&  Objects.equals(getWhen(), sc.getWhen())
+			&&  Objects.equals(getArgs(), sc.getArgs());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Shortcut) {
+			Shortcut sc = (Shortcut) obj;
+			return equalsKey(sc) && equalsCommand(sc);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return TO_STRING_GSON.toJson(this);
+	}
 }
