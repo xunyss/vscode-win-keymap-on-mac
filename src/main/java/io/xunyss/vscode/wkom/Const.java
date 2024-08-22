@@ -6,13 +6,13 @@ package io.xunyss.vscode.wkom;
 public interface Const {
 
 	String projectDir = System.getProperty("user.dir");
-	String version = projectDir + "/keybindings/version";
+	String version = projectDir + "/vscode-version";
 	String defaultWin = projectDir + "/keybindings/default-win.json";
 	String defaultMac = projectDir + "/keybindings/default-mac.json";
 
 	String wom_on = projectDir + "/keybindings/1_win-on-mac_on.json";
 	String wom_off = projectDir + "/keybindings/2_win-on-mac_off.json";
-	String custom_eclipse = projectDir + "/keybindings/3_custom-eclipse.json";
+	String custom_eclipse = projectDir + "/keybindings/custom-win-eclipse.json";
 
 	String targetDir = projectDir + "/target";
 	String win = targetDir + "/default-win.tmp.json";

@@ -8,7 +8,7 @@
 
 	<groupId>io.xunyss.vscode</groupId>
 	<artifactId>vscode-win-keymap-on-mac</artifactId>
-	<version>0.1.2</version>
+	<version>0.1.3</version>
 	<packaging>jar</packaging>
 
 	<name>vscode-win-keymap-on-mac</name>

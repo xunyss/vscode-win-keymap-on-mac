@@ -35,15 +35,14 @@ public interface Keymap {
 
 		String version = FileUtils.readLines(new File(Const.defaultWin), "UTF-8").get(0);
 		String updated = version.replaceAll(".*(\\d+\\.\\d+\\.\\d+).*", "$1");
-		log("#### updated version: " + updated);
+		log("#### updated vscode-version: " + updated);
 
 		String current = FileUtils.readFileToString(new File(Const.version), StandardCharsets.UTF_8);
-		log("#### current version: " + current);
+		log("#### current vscode-version: " + current);
 
 		if (updated.equals(current)) {
 			log("#### Already updated.");
-//			return false;
-			return true;
+			return false;
 		}
 		FileUtils.write(new File(Const.version), updated, StandardCharsets.UTF_8);
 		log("#### start updating..");

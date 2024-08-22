@@ -15,6 +15,7 @@ public class Shortcut {
 
 	private String key;
 	private String mac;
+	private String win;
 
 	private String command;
 	private String when;
@@ -35,6 +36,14 @@ public class Shortcut {
 
 	public void setMac(String mac) {
 		this.mac = mac;
+	}
+
+	public String getWin() {
+		return win;
+	}
+
+	public void setWin(String win) {
+		this.win = win;
 	}
 
 	public String getCommand() {
