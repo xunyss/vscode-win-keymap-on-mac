@@ -44,4 +44,10 @@ public class KeymapTests {
 		Shortcuts shortcuts = new Shortcuts(list);
 		System.out.println(shortcuts);
 	}
+
+	@Test
+	public void printUrls() {
+		System.out.println(Const.defaultWinURL);
+		System.out.println(Const.defaultMacURL);
+	}
 }
